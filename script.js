@@ -1,7 +1,16 @@
 const submit = document.getElementById("submit");
+const checkbox = document.querySelector('#read')
+const form = document.querySelector('#bookForm')
+const plusBook = document.querySelector('#addBook')
+
+plusBook.addEventListener('click', bookDialogue)
 submit.addEventListener("click", addBookToLibrary);
 
+
+form.style.display = 'none'
+
 let myLibrary = [];
+
 
 function newBook(author, title, pages, read) {
     // the constructor... 
@@ -17,9 +26,10 @@ function addBookToLibrary(event) {
     let author = document.getElementById("author").value;
     let title = document.getElementById("title").value;
     let pages = document.getElementById("pages").value;
-    let read = document.getElementById("read").value;
+    let read = document.getElementById("read").checked;
     const book = new newBook(author, title, pages, read)
     myLibrary.push(book);
+    bookDialogue();
     return bookDisplay();
 }
 
@@ -29,28 +39,52 @@ function bookDisplay() {
 
     for (let i = 0; i < myLibrary.length; i++) {
         displayBook(i);
-        
     }
+}
+function deleteItem(itemID) {
+    myLibrary.splice(itemID, 1);
+    bookDisplay();
 }
 function displayBook(index) {
         const displayDiv = document.querySelector('#books')
         const book = myLibrary[index]
 
         const bookDisplayDiv = document.createElement('div')
+        bookDisplayDiv.dataset.index = `${index}`
         bookDisplayDiv.classList = 'bookCard'
         
         const dispAuthor = document.createElement('h3')
-        dispAuthor.textContent = `${book.author}`
+        dispAuthor.textContent = `Author: ${book.author}`
 
         const dispTitle = document.createElement('h3')
-        dispTitle.textContent = `${book.title}`
+        dispTitle.textContent = `Title: ${book.title}`
 
         const dispPages = document.createElement('h3')
-        dispPages.textContent = `${book.pages}`
+        dispPages.textContent = `Pages ${book.pages}`
 
         const dispRead = document.createElement('button')
-        dispRead.textContent = `read`
         
-        bookDisplayDiv.append(dispAuthor, dispTitle, dispPages, dispRead)
+        dispRead.textContent = book.read ? 'Read' : 'Unread'
+        dispRead.classList = book.read ? 'green' : 'red'
+        dispRead.addEventListener('click', function () {
+        book.read = !book.read;
+        dispRead.textContent = book.read ? 'Read' : 'Unread';
+        dispRead.classList = book.read ? 'green' : 'red';
+    });
+
+        const deleteButton = document.createElement('button')
+        deleteButton.textContent = 'Delete'
+        deleteButton.addEventListener('click', function() {
+            deleteItem(`${index}`);
+        });
+        
+        bookDisplayDiv.append(dispAuthor, dispTitle, dispPages, dispRead, deleteButton)
         displayDiv.appendChild(bookDisplayDiv)
+}
+function bookDialogue() {
+    if(form.style.display === 'none'){
+    form.style.display = 'block'
+    } else {
+        form.style.display = 'none'
+    }
 }
