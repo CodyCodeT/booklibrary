@@ -62,6 +62,8 @@ function displayBook(index) {
         const dispPages = document.createElement('h3')
         dispPages.textContent = `Pages ${book.pages}`
 
+        const buttonContainer = document.createElement('div')
+        buttonContainer.classList = ('buttonContainer')
         const dispRead = document.createElement('button')
         
         dispRead.textContent = book.read ? 'Read' : 'Unread'
@@ -74,17 +76,23 @@ function displayBook(index) {
 
         const deleteButton = document.createElement('button')
         deleteButton.textContent = 'Delete'
+        deleteButton.classList = 'delete'
         deleteButton.addEventListener('click', function() {
             deleteItem(`${index}`);
         });
         
-        bookDisplayDiv.append(dispAuthor, dispTitle, dispPages, dispRead, deleteButton)
+        bookDisplayDiv.append(dispAuthor, dispTitle, dispPages, buttonContainer)
+        buttonContainer.append(dispRead, deleteButton)
         displayDiv.appendChild(bookDisplayDiv)
 }
 function bookDialogue() {
     if(form.style.display === 'none'){
-    form.style.display = 'block'
+    form.style.display = 'flex'
+    form.style.flexDirection = 'column'
     } else {
-        form.style.display = 'none'
+        return form.style.display = 'none'
     }
 }
+const footer = document.querySelector('footer')
+const currentYear = new Date().getFullYear();
+footer.textContent += `${currentYear}`
