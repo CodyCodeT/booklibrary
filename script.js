@@ -3,8 +3,14 @@ const checkbox = document.querySelector('#read')
 const form = document.querySelector('#bookForm')
 const plusBook = document.querySelector('#addBook')
 
-plusBook.addEventListener('click', bookDialogue)
+plusBook.addEventListener('click', bookDialogue);
 submit.addEventListener("click", addBookToLibrary);
+document.addEventListener('keydown', function(e) {
+    if(e.code === 'Escape'){
+        form.style.display = 'none'
+    }
+});
+
 
 
 form.style.display = 'none'
@@ -96,3 +102,7 @@ function bookDialogue() {
 const footer = document.querySelector('footer')
 const currentYear = new Date().getFullYear();
 footer.textContent += `${currentYear}`
+
+//add an event listener for escape key
+
+//add a dialogue box for delete event

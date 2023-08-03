@@ -27,6 +27,9 @@ form>div {
     align-items: center;
     justify-content: center;
 }
+.header>div>img {
+    margin-right: 10px;
+}
 .footer {
     display: flex;
     justify-content: center;
