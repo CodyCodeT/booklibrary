@@ -17,14 +17,22 @@ form.style.display = 'none'
 
 let myLibrary = [];
 
-
-function newBook(author, title, pages, read) {
-    // the constructor... 
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.read = read;
+class newBook {
+    constructor(author, title, pages, read) {
+        this.author = author;
+        this.title = title;
+        this.pages = pages;
+        this.read = read;
+    }
 }
+
+// function newBook(author, title, pages, read) {
+//     // the constructor... 
+//     this.author = author;
+//     this.title = title;
+//     this.pages = pages;
+//     this.read = read;
+// }
 
 function addBookToLibrary(event) {
     // do stuff here
